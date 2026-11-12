@@ -67,13 +67,6 @@ export const parameters = {
 	backgrounds: {
 		disable: true,
 	},
-	options: {
-		storySort: {
-			method: 'alphabetical',
-			order: ['Style Guide', 'Core', 'Areas', 'Experimental'],
-			includeNames: false,
-		},
-	},
 	docs: {
 		container: ThemedDocsContainer,
 	},

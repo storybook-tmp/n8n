@@ -44,5 +44,12 @@ const config: StorybookConfig = {
 	features: {
 		sidebarOnboardingChecklist: false,
 	},
+	storySorts: [
+		{
+			method: 'alphabetical',
+			order: ['Style Guide', 'Core', 'Areas', 'Experimental'],
+			includeNames: false,
+		},
+	],
 };
 export default config;
