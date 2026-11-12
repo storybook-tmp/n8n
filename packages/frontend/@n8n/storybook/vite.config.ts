@@ -1,9 +1,12 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import icons from 'unplugin-icons/vite';
 import svgLoader from 'vite-svg-loader';
 import path from 'path';
 import { lucideIconsPlugin } from '../design-system/src/icons/lucide/vite';
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
+import { playwright } from '@vitest/browser-playwright';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -84,6 +87,27 @@ export default defineConfig({
 			{
 				find: /^@n8n\/utils\/(.*)$/,
 				replacement: path.resolve(__dirname, '../../../@n8n/utils/src/$1'),
+			},
+		],
+	},
+	test: {
+		projects: [
+			{
+				extends: true,
+				plugins: [
+					// The plugin will run tests for the stories defined in your Storybook config
+					// See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
+					storybookTest({ configDir: path.join(import.meta.dirname, '.storybook') }),
+				],
+				test: {
+					name: 'storybook',
+					browser: {
+						enabled: true,
+						headless: true,
+						provider: playwright({}),
+						instances: [{ browser: 'chromium' }],
+					},
+				},
 			},
 		],
 	},
